@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MoMerchant</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main_menu">MainMenu</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_view_account">ViewAccount</string>
+    <string name="title_activity_transact">Transact</string>
+
+    <string-array name="customer_names">
+        <item>Jonh</item>
+        <item>Mpho</item>
+        <item>Jerry</item>
+        <item>Harry</item>
+        <item>Sarah</item>
+        <item>Sipho</item>
+    </string-array>
+
+    <string name="title_activity_report">ReportActivity</string>
+    <string name="title_activity_billing">BillingActivity</string>
+    <string name="title_activity_issue_invoice">IssueInvoiceActivity</string>
+    <string name="title_activity_issue_receipt">IssueReceipt</string>
+
+</resources>

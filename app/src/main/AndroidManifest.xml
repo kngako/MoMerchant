@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yes.momerchant" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/mm_logo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainMenuActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_main_menu"
+            android:parentActivityName=".LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yes.momerchant.login" />
+        </activity>
+        <activity
+            android:name=".ViewAccountActivity"
+            android:label="@string/title_activity_view_account"
+            android:parentActivityName=".MainMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yes.momerchant.MainMenu" />
+        </activity>
+        <activity
+            android:name=".TransactActivity"
+            android:label="@string/title_activity_transact"
+            android:parentActivityName=".MainMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yes.momerchant.MainMenu" />
+        </activity>
+        <activity
+            android:name=".ReportActivity"
+            android:label="@string/title_activity_report"
+            android:parentActivityName=".MainMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yes.momerchant.MainMenu" />
+        </activity>
+        <activity
+            android:name=".BillingActivity"
+            android:label="@string/title_activity_billing"
+            android:parentActivityName=".MainMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yes.momerchant.MainMenuActivity" />
+        </activity>
+        <activity
+            android:name=".IssueInvoiceActivity"
+            android:label="@string/title_activity_issue_invoice"
+            android:parentActivityName=".BillingActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yes.momerchant.BillingActivity" />
+        </activity>
+        <activity
+            android:name=".IssueReceiptActivity"
+            android:label="@string/title_activity_issue_receipt"
+            android:parentActivityName=".BillingActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yes.momerchant.BillingActivity" />
+        </activity>
+        <provider
+            android:name="com.yes.momerchant.providers.CustomerContentProvider"
+            android:authorities="com.yes.momerchant.providers.CustomerContentProvider" />
+        <provider
+            android:name="com.yes.momerchant.providers.TransactionContentProvider"
+            android:authorities="com.yes.momerchant.providers.TransactionContentProvider" />
+    </application>
+
+</manifest>

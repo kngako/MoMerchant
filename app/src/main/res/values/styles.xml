@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/myTheme.ActionBar</item>
+        <item name="android:buttonStyle">@style/myTheme.Button</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="myTheme.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@android:drawable/spinner_background</item>
+        <item name="android:textColor">@color/brandColor</item>
+        <item name="android:icon">@drawable/mm_logo</item>
+    </style>
+
+
+
+    <style name="ButtonBar">
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:background">@android:drawable/bottom_bar</item>
+        <item name="android:textColor">@color/brandColor</item>
+    </style>
+
+    <style name="myTheme.Button" parent="@android:style/Widget.Holo.Light">
+        <item name="android:buttonStyle">?android:attr/button</item>
+        <item name="android:padding">@dimen/activity_horizontal_margin</item>
+    </style>
+
+</resources>
