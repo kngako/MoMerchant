@@ -3,17 +3,61 @@ package com.yes.momerchant;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BillingActivity extends Activity {
+    private static final int REQUEST_EXIT = 99;
+    private EditText serviceOrProduct;
+    private EditText amount;
+    private EditText customerNumber;
+    private EditText emailAddress;
+    public final static String CUSTOMER_NUMBER = "customer";
+    public final static String EMAIL_ADDRESS = "email_address";
+    public final static String LIST_OF_SERVICES_OR_PRODUCTS = "list_of_services_or_products";
+    public final static String LIST_OF_AMOUNTS = "list_of_amounts";
+
+    LinearLayout ll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_billing);
+
+        Button iBtn = (Button) findViewById(R.id.issue_invoice);
+        iBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                issueInvoiceButton(v);
+            }
+        });
+
+        Button aBtn = (Button) findViewById(R.id.add_more);
+        aBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addMoreButton(v);
+            }
+        });
+
+        serviceOrProduct = (EditText) findViewById(R.id.serviceRendered);
+        amount  = (EditText) findViewById(R.id.billing_amount);
+        customerNumber = (EditText) findViewById(R.id.enter_customer_number_input);
+        emailAddress = (EditText) findViewById(R.id.enter_transaction_amount_input);
+        //addMore  = (Button) findViewById(R.id.add_more);
+
+        ll = (LinearLayout) findViewById(R.id.list_of_services);
     }
 
 
@@ -38,12 +82,80 @@ public class BillingActivity extends Activity {
 
     public void issueInvoiceButton(View v)
     {
-        Intent intent = new Intent(this, MainMenuActivity.class);
+        Intent intent = new Intent(this, IssueInvoiceActivity.class);
 
-        /*EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);*/
-        startActivity(intent);
+        ArrayList<String> services = new ArrayList<String>();
+        ArrayList<String> amounts = new ArrayList<String>();
+
+        //intent.setClass(SourceActivity.this, TargetActivity.this);
+        for(int i = 0; i < ll.getChildCount(); i++)
+        {
+            LinearLayout item = (LinearLayout) ll.getChildAt(i);
+
+            EditText sp = (EditText) item.getChildAt(0);
+            EditText am = (EditText) item.getChildAt(1);
+
+            String cService = sp.getText().toString();
+            String cAmount = am.getText().toString();
+
+            services.add(cService);
+            amounts.add(cAmount);
+        }
+
+        intent.putExtra(CUSTOMER_NUMBER, customerNumber.getText().toString());
+        intent.putExtra(EMAIL_ADDRESS, emailAddress.getText().toString());
+        intent.putStringArrayListExtra(LIST_OF_SERVICES_OR_PRODUCTS, services);
+        intent.putStringArrayListExtra(LIST_OF_AMOUNTS, amounts);
+
+        startActivityForResult(intent, REQUEST_EXIT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_EXIT) {
+            if (resultCode == RESULT_OK) {
+                this.finish();
+            }
+        }
+    }
+
+    public void addMoreButton(View v)
+    {
+        LinearLayout item = new LinearLayout(this);
+
+        item.setOrientation(LinearLayout.HORIZONTAL);
+        item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        item.setGravity(Gravity.CENTER);
+
+        EditText newServiceOrProduct = new EditText(this);
+
+        newServiceOrProduct.setHint("Service/Product");
+        newServiceOrProduct.setMaxWidth(dp(160));
+        newServiceOrProduct.setId(serviceOrProduct.getId() + 1);
+        newServiceOrProduct.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        newServiceOrProduct.setSingleLine();
+
+        EditText newAmount = new EditText(this);
+
+        newAmount.setHint("Amount");
+        newAmount.setMaxWidth(dp(100));
+        newAmount.setInputType(InputType.TYPE_CLASS_NUMBER);
+        newAmount.setId(amount.getId() + 1);
+        newAmount.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        newAmount.setSingleLine();
+
+        item.addView(newServiceOrProduct);
+        item.addView(newAmount);
+
+        ll.addView(item);
+    }
+
+    private int dp(float dp)
+    {
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        float fpixels = metrics.density * dp;
+        return (int) (fpixels + 0.5f);
     }
 
     public void issueReceiptButton(View v)

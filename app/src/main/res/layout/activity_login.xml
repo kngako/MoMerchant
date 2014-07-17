@@ -9,28 +9,40 @@
     android:gravity="center"
     tools:context=".login">
 
-    <EditText
-        android:id="@+id/phone_number"
-        android:inputType="phone"
+    <ScrollView
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Phone Number"/>
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/mobile_pin"
-        android:inputType="numberPassword"
-        android:layout_below="@+id/phone_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Mobile Pin"/>
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-    <Button
-        android:id="@+id/login_or_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/mobile_pin"
-        android:text="Login"
-        android:textColor="@color/brandColor"/>
+            <EditText
+                android:id="@+id/phone_number"
+                android:inputType="phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number"/>
 
+            <EditText
+                android:id="@+id/mobile_pin"
+                android:inputType="numberPassword"
+                android:layout_below="@+id/phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mobile Pin"/>
+
+            <Button
+                android:id="@+id/login_or_signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_below="@+id/mobile_pin"
+                android:text="Login"
+                android:textColor="@color/brandColor"/>
+            </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

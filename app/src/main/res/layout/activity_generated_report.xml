@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:gravity="center"
-    tools:context="com.yes.momerchant.IssueInvoiceActivity">
+    tools:context="com.yes.momerchant.GeneratedReport">
 
     <ScrollView
         android:layout_alignParentTop="true"
@@ -19,23 +19,11 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-            <EditText
+            <ListView
+                android:id="@android:id/list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:ems="10"
-                android:id="@+id/invoicee_name"
-                android:hint="Customer Name"
-                android:layout_alignParentTop="true"/>
-
-            <Button
-                android:id="@+id/generate_invoice"
-                android:text="Issue Invoice"
-                android:textColor="@color/brandColor"
-                android:layout_centerInParent="true"
-                android:layout_below="@+id/invoicee_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/balance"
                 />
 
             </RelativeLayout>

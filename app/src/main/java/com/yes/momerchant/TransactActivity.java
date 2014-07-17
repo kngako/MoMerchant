@@ -79,9 +79,7 @@ public class TransactActivity extends Activity {
         {
             TransactionContract.insertTransaction(c, new Transaction(time, num, am, null));
 
-            Intent intent = new Intent(this, MainMenuActivity.class);
-
-            startActivity(intent);
+            finish();
         }
         else
         {

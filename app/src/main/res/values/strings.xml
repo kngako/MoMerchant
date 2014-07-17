@@ -23,5 +23,6 @@
     <string name="title_activity_billing">BillingActivity</string>
     <string name="title_activity_issue_invoice">IssueInvoiceActivity</string>
     <string name="title_activity_issue_receipt">IssueReceipt</string>
+    <string name="title_activity_generated_report">GeneratedReport</string>
 
 </resources>

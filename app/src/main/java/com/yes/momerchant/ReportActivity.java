@@ -8,10 +8,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
 import com.yes.momerchant.R;
 
+import java.util.Calendar;
+
 public class ReportActivity extends Activity {
+
+    private DatePicker startDate;
+    private DatePicker endDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +33,18 @@ public class ReportActivity extends Activity {
                 generateButton(v);
             }
         });
+
+        startDate = (DatePicker) findViewById(R.id.start_date_input);
+        endDate = (DatePicker) findViewById(R.id.end_date_input);
+
+        final Calendar c = Calendar.getInstance();
+
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        startDate.init(year, month, day, null);
+        endDate.init(year, month, day, null);
     }
 
 
@@ -51,11 +70,7 @@ public class ReportActivity extends Activity {
     public void generateButton(View v) {
         // TODO: Valdate the input...
 
-        Intent intent = new Intent(this, MainMenuActivity.class);
 
-        /*EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);*/
-        startActivity(intent);
+        finish();
     }
 }

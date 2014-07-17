@@ -27,6 +27,7 @@
 
     <style name="myTheme.Button" parent="@android:style/Widget.Holo.Light">
         <item name="android:buttonStyle">?android:attr/button</item>
+        <item name="android:textColor">@color/brandColor</item>
         <item name="android:padding">@dimen/activity_horizontal_margin</item>
     </style>
 

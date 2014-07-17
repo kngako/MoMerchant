@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yes.momerchant" >
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/mm_logo"
@@ -20,7 +22,7 @@
             android:name=".MainMenuActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_main_menu"
-            android:parentActivityName=".LoginActivity">
+            android:parentActivityName=".LoginActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yes.momerchant.login" />
@@ -73,12 +75,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yes.momerchant.BillingActivity" />
         </activity>
+
         <provider
-            android:name="com.yes.momerchant.providers.CustomerContentProvider"
+            android:name=".providers.CustomerContentProvider"
             android:authorities="com.yes.momerchant.providers.CustomerContentProvider" />
         <provider
-            android:name="com.yes.momerchant.providers.TransactionContentProvider"
+            android:name=".providers.TransactionContentProvider"
             android:authorities="com.yes.momerchant.providers.TransactionContentProvider" />
+
+        <activity
+            android:name=".GeneratedReport"
+            android:label="@string/title_activity_generated_report"
+            android:parentActivityName=".ReportActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yes.momerchant.ReportActivity" />
+        </activity>
     </application>
 
 </manifest>

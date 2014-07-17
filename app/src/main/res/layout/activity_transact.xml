@@ -8,38 +8,51 @@
     android:gravity="center"
     tools:context="com.yes.momerchant.TransactActivity">
 
-    <EditText
-        android:id="@+id/receiver_number"
-        android:hint="Cellphone/Account Number"
-        android:inputType="number"
+    <ScrollView
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/amount"
-        android:hint="Amount"
-        android:inputType="number"
-        android:layout_below="@+id/receiver_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-    <EditText
-        android:id="@+id/reference"
-        android:hint="Reference"
-        android:layout_below="@+id/amount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+            <EditText
+                android:id="@+id/receiver_number"
+                android:hint="Cellphone/Account Number"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/execute"
-        android:layout_below="@+id/reference"
-        android:text="Transact"
-        android:textColor="@color/brandColor"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+            <EditText
+                android:id="@+id/amount"
+                android:hint="Amount"
+                android:inputType="number"
+                android:layout_below="@+id/receiver_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <EditText
+                android:id="@+id/reference"
+                android:hint="Reference"
+                android:layout_below="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <Button
+                android:id="@+id/execute"
+                android:layout_below="@+id/reference"
+                android:text="Transact"
+                android:textColor="@color/brandColor"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

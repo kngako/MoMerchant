@@ -18,7 +18,7 @@ public class LoginActivity extends Activity {
     private EditText phoneNumber;
     private EditText mobilePin;
 
-    private boolean debug = false;
+    private boolean debug = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
