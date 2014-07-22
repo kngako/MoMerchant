@@ -33,22 +33,28 @@ import java.util.List;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class ViewAccountActivity extends ListActivity implements AdapterView.OnItemClickListener/*LoaderManager.LoaderCallbacks<Cursor>*/ {
     private static final String TAG = "ViewAccountActivity";
+    private List<Transaction> transactions;
+    private ListView listView;
+
+    private int count = 1;
+    private final int maxItems = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_account);
 
-        ListView listView = getListView();
+        listView = getListView();
 
-        List<Transaction> transactions = TransactionContract.getTransactions(this);
+        transactions = TransactionContract.getTransactions(this);
         int balance = 0;
         for(Transaction tr: transactions)
         {
             balance += Integer.parseInt(tr.getAmount().substring(2));
         }
 
-        CustomAdapter customAdapter = new CustomAdapter(this, R.layout.transaction_row, transactions);
+        // TODO: Implement the limited element list...
+        CustomAdapter customAdapter = new CustomAdapter(this, R.layout.transaction_row, transactions/*.subList(count * maxItems, (count + 1) * maxItems)*/);
         listView.setAdapter(customAdapter);
 
         TextView bView = (TextView) findViewById(R.id.amount);
@@ -73,6 +79,13 @@ public class ViewAccountActivity extends ListActivity implements AdapterView.OnI
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void updateList()
+    {
+        count++;
+        CustomAdapter customAdapter = new CustomAdapter(this, R.layout.transaction_row, transactions.subList(count * maxItems, (count + 1) * maxItems));
+        listView.setAdapter(customAdapter);
     }
 
     // Opens the detail(pager) activity if an entry is clicked

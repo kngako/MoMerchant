@@ -1,6 +1,7 @@
 package com.yes.momerchant;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
@@ -42,18 +43,16 @@ import java.util.logging.Logger;
 public class IssueInvoiceActivity extends Activity {
     private final String TAG = "IssueInvoiceActivity";
 
+    private ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // TODO: Might wanna implement a spinner here...
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_issue_invoice);
 
-        Button bBtn = (Button) findViewById(R.id.generate_invoice);
-        bBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                generateInvoiceButton(v);
-            }
-        });
+        generatePDF();
+        finish();
     }
 
 
@@ -78,11 +77,11 @@ public class IssueInvoiceActivity extends Activity {
 
     public void generateInvoiceButton(View v)
     {
-        generatePDF(null);
+        generatePDF();
         finish();
     }
 
-    public void generatePDF(List<Transaction> entities)
+    public void generatePDF()
     {
         Toast.makeText(this, "Generating PDF", Toast.LENGTH_SHORT).show();
         //AuthenticUser(session, list of privliges)
@@ -92,6 +91,7 @@ public class IssueInvoiceActivity extends Activity {
 
         try
         {
+            Toast.makeText(this, "Stored in: /MoMerchant/", Toast.LENGTH_LONG).show();
             String root = Environment.getExternalStorageDirectory().toString();
             File storeDir = new File(root + "/MoMerchant");
             storeDir.mkdirs();
@@ -107,7 +107,7 @@ public class IssueInvoiceActivity extends Activity {
             doc.add(new Paragraph("Issue invoiced by: " + "Company Name"));
             doc.add(new Paragraph("Created on: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(time)));
             doc.add(new Paragraph("Company Registration Number: " + "094-246-462-642"));
-            doc.add(new Paragraph("Recipients Name:" + "KKKK"));
+            doc.add(new Paragraph("Recipients Name:" + getIntent().getStringExtra(BillingActivity.CUSTOMER_NAME)));
             doc.add(new Paragraph("Cell Number: " + getIntent().getStringExtra(BillingActivity.CUSTOMER_NUMBER)));
             doc.add(new Paragraph("Auto generated Invoice Number: " + "02959"));
 
@@ -156,12 +156,6 @@ public class IssueInvoiceActivity extends Activity {
         //return baosPDF;
         setResult(RESULT_OK, null);
         finish();
-    }
-
-    public boolean isExternalStorageWritable()
-    {
-        String state = Environment.getExternalStorageState();
-        return Environment.MEDIA_MOUNTED.equals(state);
     }
 
 }

@@ -90,7 +90,7 @@ public class TransactionContract {
     public static List<Transaction> getTransactions(Context c)
     {
         List<Transaction> transactionList = new ArrayList<Transaction>();
-        String selectQuery = "SELECT * FROM " + TransactionContract.LIST_NAME;//query to search appointment by title
+        String selectQuery = "SELECT * FROM " + TransactionContract.LIST_NAME + " ORDER BY " + COLUMN_DATE + " DESC";//query to search appointment by title
         SQLiteDatabase db = new DatabaseHelper(c).getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()){

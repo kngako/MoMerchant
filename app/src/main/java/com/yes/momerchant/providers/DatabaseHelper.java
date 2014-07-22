@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "cmoresync.db"; // TODO: Change NAME?
+    private static final String DATABASE_NAME = "momerchant.db"; // TODO: Change NAME?
     private static final int DATABASE_VERSION = 1;
     private static Context c;
 

@@ -2,9 +2,11 @@ package com.yes.momerchant;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,18 +14,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BillingActivity extends Activity {
+    private static final String TAG = "BillingActivity";
     private static final int REQUEST_EXIT = 99;
+    private static int count = 1;
+    private static int serviceOrProductRenderedLimit = 5;
+
     private EditText serviceOrProduct;
     private EditText amount;
     private EditText customerNumber;
+    private EditText customerName;
     private EditText emailAddress;
-    public final static String CUSTOMER_NUMBER = "customer";
+    private Button del;
+
+    public final static String CUSTOMER_NAME = "customer";
+    public final static String CUSTOMER_NUMBER = "customerNo";
     public final static String EMAIL_ADDRESS = "email_address";
     public final static String LIST_OF_SERVICES_OR_PRODUCTS = "list_of_services_or_products";
     public final static String LIST_OF_AMOUNTS = "list_of_amounts";
@@ -51,10 +63,21 @@ public class BillingActivity extends Activity {
             }
         });
 
+        del = (Button) findViewById(R.id.delete);
+        //del.setId(count++);
+        del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteButton(v);
+            }
+        });
+
         serviceOrProduct = (EditText) findViewById(R.id.serviceRendered);
         amount  = (EditText) findViewById(R.id.billing_amount);
+
         customerNumber = (EditText) findViewById(R.id.enter_customer_number_input);
         emailAddress = (EditText) findViewById(R.id.enter_transaction_amount_input);
+        customerName = (EditText) findViewById(R.id.invoicee_name);
         //addMore  = (Button) findViewById(R.id.add_more);
 
         ll = (LinearLayout) findViewById(R.id.list_of_services);
@@ -102,6 +125,7 @@ public class BillingActivity extends Activity {
             amounts.add(cAmount);
         }
 
+        intent.putExtra(CUSTOMER_NAME, customerName.getText().toString());
         intent.putExtra(CUSTOMER_NUMBER, customerNumber.getText().toString());
         intent.putExtra(EMAIL_ADDRESS, emailAddress.getText().toString());
         intent.putStringArrayListExtra(LIST_OF_SERVICES_OR_PRODUCTS, services);
@@ -122,33 +146,45 @@ public class BillingActivity extends Activity {
 
     public void addMoreButton(View v)
     {
-        LinearLayout item = new LinearLayout(this);
+        if(count < serviceOrProductRenderedLimit) {
+            LinearLayout item = new LinearLayout(this);
 
-        item.setOrientation(LinearLayout.HORIZONTAL);
-        item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        item.setGravity(Gravity.CENTER);
+            item.setOrientation(LinearLayout.HORIZONTAL);
+            item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            item.setGravity(Gravity.CENTER);
 
-        EditText newServiceOrProduct = new EditText(this);
+            EditText newServiceOrProduct = new EditText(this);
 
-        newServiceOrProduct.setHint("Service/Product");
-        newServiceOrProduct.setMaxWidth(dp(160));
-        newServiceOrProduct.setId(serviceOrProduct.getId() + 1);
-        newServiceOrProduct.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        newServiceOrProduct.setSingleLine();
+            newServiceOrProduct.setHint("Service/Product");
+            newServiceOrProduct.setMaxWidth(dp(160));
+            newServiceOrProduct.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            newServiceOrProduct.setSingleLine();
 
-        EditText newAmount = new EditText(this);
+            EditText newAmount = new EditText(this);
 
-        newAmount.setHint("Amount");
-        newAmount.setMaxWidth(dp(100));
-        newAmount.setInputType(InputType.TYPE_CLASS_NUMBER);
-        newAmount.setId(amount.getId() + 1);
-        newAmount.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        newAmount.setSingleLine();
+            newAmount.setHint("Amount");
+            newAmount.setMaxWidth(dp(90));
+            newAmount.setInputType(InputType.TYPE_CLASS_NUMBER);
+            newAmount.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            newAmount.setSingleLine();
 
-        item.addView(newServiceOrProduct);
-        item.addView(newAmount);
+            Button delete = new Button(this);
+            Drawable[] drawablesLeft = del.getCompoundDrawables();
+            delete.setId(count++);
+            delete.setCompoundDrawables(drawablesLeft[0], null, null, null);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteButton(v);
+                }
+            });
 
-        ll.addView(item);
+            item.addView(newServiceOrProduct);
+            item.addView(newAmount);
+            item.addView(delete);
+
+            ll.addView(item);
+        }
     }
 
     private int dp(float dp)
@@ -156,6 +192,21 @@ public class BillingActivity extends Activity {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         float fpixels = metrics.density * dp;
         return (int) (fpixels + 0.5f);
+    }
+
+    public void deleteButton(View v)
+    {
+        for(int i = 0; i < ll.getChildCount(); i++)
+        {
+            LinearLayout item = (LinearLayout) ll.getChildAt(i);
+
+            Button rm = (Button) item.getChildAt(2);
+
+            if(rm.getId() == v.getId())
+            {
+                ll.removeView(item);
+            }
+        }
     }
 
     public void issueReceiptButton(View v)

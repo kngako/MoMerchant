@@ -1,4 +1,4 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,74 +6,80 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context="com.yes.momerchant.ReportActivity">
 
     <ScrollView
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Start Date"
-                android:id="@+id/start_header"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"/>
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <DatePicker
-                android:id="@+id/start_date_input"
-                android:calendarViewShown="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/start_header"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentLeft="true"
-                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Start Date"
+                    android:id="@+id/start_header"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="End Date"
-                android:id="@+id/end_header"
-                android:layout_below="@+id/start_date_input"
-                android:layout_centerInParent="true"
-                />
+                <DatePicker
+                    android:id="@+id/start_date_input"
+                    android:calendarViewShown="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/start_header"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
+                    />
 
-            <DatePicker
-                android:id="@+id/end_date_input"
-                android:calendarViewShown="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/end_header" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="End Date"
+                    android:id="@+id/end_header"
+                    android:layout_below="@+id/start_date_input"
+                    android:layout_centerInParent="true"
+                    />
 
-            <View
-                android:id="@+id/dash"
-                android:layout_below="@+id/end_date_input"
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:background="#000000" />
+                <DatePicker
+                    android:id="@+id/end_date_input"
+                    android:calendarViewShown="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/end_header" />
 
-            <Button
-                android:id="@+id/generate"
-                android:text="Generate"
-                android:layout_centerInParent="true"
-                android:textColor="@color/brandColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/dash"/>
+                <View
+                    android:id="@+id/dash"
+                    android:layout_below="@+id/end_date_input"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:background="#000000" />
 
-        </RelativeLayout>
+                <Button
+                    android:id="@+id/generate"
+                    android:text="Generate"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/brandColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dash"/>
+
+            </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
 
-</RelativeLayout>
+</LinearLayout>

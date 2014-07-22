@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -63,7 +64,7 @@ public class GeneratedReport extends ListActivity {
         switch(item.getItemId())
         {
             case R.id.menu_item_share:
-
+                Log.i("kfnr", "pressed");
                 break;
         }
         return super.onOptionsItemSelected(item);

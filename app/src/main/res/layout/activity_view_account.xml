@@ -1,4 +1,4 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,14 +7,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="16dp"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context="com.yes.momerchant.ViewAccountActivity"
     >
-
-    <ScrollView
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_gravity="center"
@@ -22,17 +17,19 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/balance"
                 android:text="Balance: R "
-                android:layout_alignParentTop="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/amount"
                 />
 
             <TextView
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/amount"
-                android:layout_toRightOf="@+id/balance"
                 android:text="00.00"
+                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -43,7 +40,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/balance"
                 />
-            </RelativeLayout>
-    </ScrollView>
+        </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

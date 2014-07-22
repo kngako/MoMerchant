@@ -69,8 +69,22 @@ public class ReportActivity extends Activity {
 
     public void generateButton(View v) {
         // TODO: Valdate the input...
+        int sDay = startDate.getDayOfMonth();
+        int sMonth = startDate.getMonth() - 1;
+        int sYear =  startDate.getYear();
 
+        Calendar startCalendar = Calendar.getInstance();
+        startCalendar.set(sYear, sMonth, sDay);
 
+        int eDay = endDate.getDayOfMonth();
+        int eMonth = endDate.getMonth() - 1;
+        int eYear =  endDate.getYear();
+
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.set(eYear, eMonth, eDay);
+
+        Intent intent = new Intent(this, GeneratedReport.class);
+        startActivity(intent);
         finish();
     }
 }

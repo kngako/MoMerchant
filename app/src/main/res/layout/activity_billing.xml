@@ -1,108 +1,135 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:gravity="center"
     tools:context="com.yes.momerchant.BillingActivity">
 
     <ScrollView
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:ems="10"
-                android:id="@+id/enter_customer_number_input"
-                android:layout_alignParentTop="true"
-                android:hint="Customer Phone Number"
-                />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textAutoComplete"
-                android:ems="10"
-                android:id="@+id/enter_transaction_amount_input"
-                android:layout_below="@+id/enter_customer_number_input"
-                android:hint="Email Address"
-                />
-
-            <LinearLayout
-                android:id="@+id/list_of_services"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/enter_transaction_amount_input"
+            <RelativeLayout
                 android:gravity="center"
-                android:orientation="vertical">
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-                <LinearLayout
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:ems="10"
+                    android:id="@+id/invoicee_name"
+                    android:hint="Customer Name"
+                    android:layout_alignParentTop="true"/>
+
+                <EditText
+                    android:layout_below="@+id/invoicee_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:ems="10"
+                    android:id="@+id/enter_customer_number_input"
+
+                    android:hint="Customer Phone Number"
+                    />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textAutoComplete"
+                    android:layout_alignParentLeft="true"
+                    android:ems="10"
+                    android:id="@+id/enter_transaction_amount_input"
+                    android:layout_toLeftOf="@+id/emailSwitch"
+                    android:layout_alignBottom="@+id/emailSwitch"
+                    android:hint="Email Address"
+                    />
+
+                <ToggleButton
+                    android:id="@+id/emailSwitch"
+                    android:layout_below="@+id/enter_customer_number_input"
+                    android:layout_alignParentRight="true"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+    
+                <LinearLayout
+                    android:id="@+id/list_of_services"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/enter_transaction_amount_input"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/serviceRendered"
-                        android:maxWidth="160dp"
-                        android:hint="Service/Product"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        />
+                        android:baselineAligned="true"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/billing_amount"
-                        android:inputType="number"
-                        android:maxWidth="100dp"
-                        android:maxLines="1"
-                        android:hint="Amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        />
+                        <EditText
+                            android:id="@+id/serviceRendered"
+                            android:maxWidth="160dp"
+                            android:maxLength="50"
+                            android:hint="Service/Product"
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            />
+
+                        <EditText
+                            android:id="@+id/billing_amount"
+                            android:inputType="number"
+                            android:maxWidth="90dp"
+                            android:maxLines="1"
+                            android:maxLength="25"
+                            android:hint="Amount"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            />
+
+                        <Button
+                            android:id="@+id/delete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@android:drawable/btn_dialog"
+                            />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
-                </LinearLayout>
+                <Button
+                    android:id="@+id/add_more"
+                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/list_of_services"
+                    />
 
-            <Button
-                android:id="@+id/add_more"
-                android:drawableLeft="@android:drawable/ic_menu_add"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/list_of_services"
-                />
+                <Button
+                    android:id="@+id/issue_invoice"
+                    android:text="Issue invoice"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/brandColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/add_more"/>
 
-            <Button
-                android:id="@+id/issue_invoice"
-                android:text="Issue invoice"
-                android:layout_centerInParent="true"
-                android:textColor="@color/brandColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/add_more"/>
-
-            <Button
-                android:id="@+id/issue_reciepts"
-                android:text="Issue Reciepts"
-                android:layout_centerInParent="true"
-                android:textColor="@color/brandColor"
-                android:layout_below="@+id/issue_invoice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            </RelativeLayout>
+                </RelativeLayout>
+            </LinearLayout>
     </ScrollView>
 
-</RelativeLayout>
+</LinearLayout>

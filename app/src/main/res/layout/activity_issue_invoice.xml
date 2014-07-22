@@ -8,37 +8,19 @@
     android:gravity="center"
     tools:context="com.yes.momerchant.IssueInvoiceActivity">
 
-    <ScrollView
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/linlaHeaderProgress"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
 
-        <RelativeLayout
-            android:layout_gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:ems="10"
-                android:id="@+id/invoicee_name"
-                android:hint="Customer Name"
-                android:layout_alignParentTop="true"/>
-
-            <Button
-                android:id="@+id/generate_invoice"
-                android:text="Issue Invoice"
-                android:textColor="@color/brandColor"
-                android:layout_centerInParent="true"
-                android:layout_below="@+id/invoicee_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
-
-            </RelativeLayout>
-    </ScrollView>
+        <ProgressBar
+            android:id="@+id/pbHeaderProgress"
+            style="@style/Widget.AppCompat.Base.Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </RelativeLayout>
