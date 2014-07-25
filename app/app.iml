@@ -64,9 +64,12 @@
     <orderEntry type="library" exported="" name="bcprov-jdk14-1.38" level="project" />
     <orderEntry type="library" exported="" name="bctsp-jdk14-1.38" level="project" />
     <orderEntry type="library" exported="" name="bcmail-jdk14-1.38" level="project" />
+    <orderEntry type="library" exported="" name="Parse-1.5.1" level="project" />
     <orderEntry type="library" exported="" name="itextpdf-5.0.6" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
+    <orderEntry type="library" exported="" name="mail-1.4.1" level="project" />
+    <orderEntry type="library" exported="" name="activation-1.1" level="project" />
   </component>
 </module>
 

@@ -126,7 +126,6 @@ public class IssueInvoiceActivity extends Activity {
                 doc.add(new Paragraph(services.get(i) + ": " + "R " + amounts.get(i)));
             }
 
-
             doc.add(linebreak);
 
             doc.add(new Paragraph("Payment must be sent to this number: 0739383807"));

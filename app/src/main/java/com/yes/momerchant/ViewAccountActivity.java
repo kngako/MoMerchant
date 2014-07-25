@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.os.Bundle;
 import android.view.ActionMode;
@@ -23,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yes.momerchant.providers.Transaction;
 import com.yes.momerchant.providers.TransactionContract;
@@ -88,17 +90,26 @@ public class ViewAccountActivity extends ListActivity implements AdapterView.OnI
         listView.setAdapter(customAdapter);
     }
 
-    // Opens the detail(pager) activity if an entry is clicked
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         /*Intent intent = new Intent(this, DetailPagerActivity.class);
         intent.putExtra(KEY_LIST_INDEX, position);
         startActivity(intent);*/
+        TextView cNumber = (TextView) v.findViewById(R.id.cNumber);
+        // TODO: Get Customer History
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        try {
+            TextView cNumber = (TextView) view.findViewById(R.id.cNumber);
+            // TODO: Send SMS to user...
+            Toast.makeText(this, "Send SMS to " + cNumber.getText(), Toast.LENGTH_SHORT).show();
+        }
+        catch(Exception ex)
+        {
+            Log.i(TAG, ex.toString());
+        }
     }
 }

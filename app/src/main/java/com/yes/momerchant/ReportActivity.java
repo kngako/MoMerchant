@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.yes.momerchant.R;
 
@@ -19,6 +20,9 @@ public class ReportActivity extends Activity {
 
     private DatePicker startDate;
     private DatePicker endDate;
+
+    private static final String START_DATE = "start_date";
+    private static final String END_DATE = "end_date";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,12 @@ public class ReportActivity extends Activity {
         endCalendar.set(eYear, eMonth, eDay);
 
         Intent intent = new Intent(this, GeneratedReport.class);
+
+        intent.putExtra(START_DATE, startCalendar.getTime().toString());
+        intent.putExtra(END_DATE, endCalendar.getTime().toString());
+
+        Toast.makeText(this, "Making from: " + startCalendar.getTime().toString(), Toast.LENGTH_LONG).show();
+
         startActivity(intent);
         finish();
     }

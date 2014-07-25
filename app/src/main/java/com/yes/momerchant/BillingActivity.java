@@ -17,9 +17,20 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class BillingActivity extends Activity {
     private static final String TAG = "BillingActivity";
@@ -33,6 +44,7 @@ public class BillingActivity extends Activity {
     private EditText customerName;
     private EditText emailAddress;
     private Button del;
+    private ToggleButton emailSwitch;
 
     public final static String CUSTOMER_NAME = "customer";
     public final static String CUSTOMER_NUMBER = "customerNo";
@@ -81,6 +93,7 @@ public class BillingActivity extends Activity {
         //addMore  = (Button) findViewById(R.id.add_more);
 
         ll = (LinearLayout) findViewById(R.id.list_of_services);
+        emailSwitch = (ToggleButton) findViewById(R.id.emailSwitch);
     }
 
 
@@ -131,7 +144,52 @@ public class BillingActivity extends Activity {
         intent.putStringArrayListExtra(LIST_OF_SERVICES_OR_PRODUCTS, services);
         intent.putStringArrayListExtra(LIST_OF_AMOUNTS, amounts);
 
+        //if(emailSwitch.isChecked()) sendEmail(services, amounts);
+
         startActivityForResult(intent, REQUEST_EXIT);
+    }
+
+    public void sendEmail(List<String> services, List<String> amount)
+    {
+        try
+        {
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
+
+            Session session = Session.getInstance(props,
+                    new javax.mail.Authenticator()
+                    {
+                        @Override
+                        protected PasswordAuthentication getPasswordAuthentication()
+                        {
+                            return new PasswordAuthentication("iterativekak@gmail.com", "zeroZERO");
+                        }
+                    });
+
+            Address[] addresses = new Address[1];
+            addresses[0] = new InternetAddress(emailAddress.getText().toString());
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("iterativekak@gmail.com"));
+            message.setSubject("Business Name: Invoice For You.");
+                message.setRecipients(Message.RecipientType.TO, addresses);
+            String text = "I'm too lazy to write it all out...\n\n";
+
+            for(int i = 0; i < services.size(); i++) {
+                text += services.get(i) + ": " + amount.get(i) + "\n";
+            }
+
+            text += "\nHave a good day.";
+            message.setText(text);
+
+            Transport.send(message);
+        } catch (MessagingException e) {
+            Toast.makeText(this, "Failed to sent email..." , Toast.LENGTH_LONG).show();
+            Log.e(TAG, e.toString());
+        }
     }
 
     @Override
@@ -207,15 +265,5 @@ public class BillingActivity extends Activity {
                 ll.removeView(item);
             }
         }
-    }
-
-    public void issueReceiptButton(View v)
-    {
-        Intent intent = new Intent(this, MainMenuActivity.class);
-
-        /*EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);*/
-        startActivity(intent);
     }
 }
