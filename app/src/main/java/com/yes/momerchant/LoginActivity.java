@@ -11,8 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
+import com.parse.LogInCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 
 public class LoginActivity extends Activity {
@@ -72,12 +77,24 @@ public class LoginActivity extends Activity {
         String phone = phoneNumber.getText().toString();
         String pin = mobilePin.getText().toString();
         Log.i(TAG, "Phone:" + phone + ".\nPin:" + pin + ".");
-        ParseObject post = new ParseObject("LoginDetails");
 
-        post.put("mobileNumber", phone);
-        // post.put("mobilePin", pin);
+        ParseUser.logInInBackground(phone, pin, new LogInCallback() {
+            public void done(ParseUser user, ParseException e) {
+                if (user != null) {
+                    //TODO: Clear input
+                    Toast.makeText(getApplication(), "Logs on", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplication(), MainMenuActivity.class);
 
-        post.saveInBackground();
+                    /*EditText editText = (EditText) findViewById(R.id.edit_message);
+                    String message = editText.getText().toString();
+                    intent.putExtra(EXTRA_MESSAGE, message);*/
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Failed Log on", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        /*
         if(phone.equals("0739383807") && pin.equals("12345") || debug) {
 
 
@@ -85,11 +102,11 @@ public class LoginActivity extends Activity {
 
             /*EditText editText = (EditText) findViewById(R.id.edit_message);
             String message = editText.getText().toString();
-            intent.putExtra(EXTRA_MESSAGE, message);*/
+            intent.putExtra(EXTRA_MESSAGE, message);*
             startActivity(intent);
         }
         else{
             Toast.makeText(this, "Bad Credentials", Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 }

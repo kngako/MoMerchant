@@ -26,6 +26,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.yes.momerchant.providers.Transaction;
 import com.yes.momerchant.providers.TransactionContract;
 import com.yes.momerchant.util.CustomAdapter;
@@ -35,8 +40,8 @@ import java.util.List;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class ViewAccountActivity extends ListActivity implements AdapterView.OnItemClickListener/*LoaderManager.LoaderCallbacks<Cursor>*/ {
     private static final String TAG = "ViewAccountActivity";
-    private List<Transaction> transactions;
-    private ListView listView;
+    private static List<Transaction> transactions;
+    private static ListView listView;
 
     private int count = 1;
     private final int maxItems = 10;
@@ -56,6 +61,27 @@ public class ViewAccountActivity extends ListActivity implements AdapterView.OnI
         }
 
         // TODO: Implement the limited element list...
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Transaction");
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        query.whereEqualTo("merchant", currentUser.getObjectId());
+        query.orderByDescending("createdAt");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> merchantTransactions, ParseException e) {
+                if (e == null) {
+                    Log.d("score", "Retrieved " + merchantTransactions.size() + " scores");
+                    for(ParseObject p: merchantTransactions)
+                    {
+                        // TODO: Update Transaction local database...
+                        transactions.add(new Transaction(p.getCreatedAt().toString(), p.getString("CustomerPhoneNumber"), p.getString("amount"), Long.parseLong(p.getString("id"))));
+
+                    }
+                    CustomAdapter customAdapter = new CustomAdapter(getParent(), R.layout.transaction_row, transactions/*.subList(count * maxItems, (count + 1) * maxItems)*/);
+                    listView.setAdapter(customAdapter);
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+        });
         CustomAdapter customAdapter = new CustomAdapter(this, R.layout.transaction_row, transactions/*.subList(count * maxItems, (count + 1) * maxItems)*/);
         listView.setAdapter(customAdapter);
 

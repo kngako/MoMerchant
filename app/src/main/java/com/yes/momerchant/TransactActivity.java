@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.yes.momerchant.providers.Transaction;
 import com.yes.momerchant.providers.TransactionContract;
 
@@ -77,7 +79,14 @@ public class TransactActivity extends Activity {
 
         if(num.length() == 10)
         {
-            TransactionContract.insertTransaction(c, new Transaction(time, num, am, null));
+            ParseObject transaction = new ParseObject("Transaction");
+
+            transaction.put("amount", am);
+            transaction.put("CustomerPhoneNumber", num);
+            transaction.put("merchant", ParseUser.getCurrentUser().getObjectId());
+            transaction.saveInBackground();
+
+            //TransactionContract.insertTransaction(c, new Transaction(time, num, am, null));
 
             finish();
         }
