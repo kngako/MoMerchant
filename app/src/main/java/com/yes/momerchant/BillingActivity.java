@@ -144,52 +144,27 @@ public class BillingActivity extends Activity {
         intent.putStringArrayListExtra(LIST_OF_SERVICES_OR_PRODUCTS, services);
         intent.putStringArrayListExtra(LIST_OF_AMOUNTS, amounts);
 
-        //if(emailSwitch.isChecked()) sendEmail(services, amounts);
+        if(emailSwitch.isChecked()) sendEmail(services, amounts);
 
         startActivityForResult(intent, REQUEST_EXIT);
     }
 
     public void sendEmail(List<String> services, List<String> amount)
     {
-        try
-        {
-            Properties props = new Properties();
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.port", "587");
+        String text = "I'm too lazy to write it all out...\n\n";
 
-            Session session = Session.getInstance(props,
-                    new javax.mail.Authenticator()
-                    {
-                        @Override
-                        protected PasswordAuthentication getPasswordAuthentication()
-                        {
-                            return new PasswordAuthentication("iterativekak@gmail.com", "zeroZERO");
-                        }
-                    });
-
-            Address[] addresses = new Address[1];
-            addresses[0] = new InternetAddress(emailAddress.getText().toString());
-
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("iterativekak@gmail.com"));
-            message.setSubject("Business Name: Invoice For You.");
-                message.setRecipients(Message.RecipientType.TO, addresses);
-            String text = "I'm too lazy to write it all out...\n\n";
-
-            for(int i = 0; i < services.size(); i++) {
-                text += services.get(i) + ": " + amount.get(i) + "\n";
-            }
-
-            text += "\nHave a good day.";
-            message.setText(text);
-
-            Transport.send(message);
-        } catch (MessagingException e) {
-            Toast.makeText(this, "Failed to sent email..." , Toast.LENGTH_LONG).show();
-            Log.e(TAG, e.toString());
+        for(int i = 0; i < services.size(); i++) {
+            text += services.get(i) + ": " + amount.get(i) + "\n";
         }
+
+        text += "\nHave a good day.";
+
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress.getText().toString()});
+        email.putExtra(Intent.EXTRA_SUBJECT, "Business Name: Invoice For You.");
+        email.putExtra(Intent.EXTRA_TEXT, text);
+        email.setType("message/rfc822");
+        startActivity(Intent.createChooser(email, "Choose an Email client :"));
     }
 
     @Override

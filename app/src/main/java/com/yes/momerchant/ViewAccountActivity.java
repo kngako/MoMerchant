@@ -35,13 +35,15 @@ import com.yes.momerchant.providers.Transaction;
 import com.yes.momerchant.providers.TransactionContract;
 import com.yes.momerchant.util.CustomAdapter;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class ViewAccountActivity extends ListActivity implements AdapterView.OnItemClickListener/*LoaderManager.LoaderCallbacks<Cursor>*/ {
     private static final String TAG = "ViewAccountActivity";
-    private static List<Transaction> transactions;
-    private static ListView listView;
+    private List<Transaction> transactions;
+    private ListView listView;
 
     private int count = 1;
     private final int maxItems = 10;
@@ -52,36 +54,25 @@ public class ViewAccountActivity extends ListActivity implements AdapterView.OnI
         setContentView(R.layout.activity_view_account);
 
         listView = getListView();
-
-        transactions = TransactionContract.getTransactions(this);
         int balance = 0;
-        for(Transaction tr: transactions)
-        {
-            balance += Integer.parseInt(tr.getAmount().substring(2));
-        }
 
         // TODO: Implement the limited element list...
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Transaction");
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        query.whereEqualTo("merchant", currentUser.getObjectId());
-        query.orderByDescending("createdAt");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> merchantTransactions, ParseException e) {
-                if (e == null) {
-                    Log.d("score", "Retrieved " + merchantTransactions.size() + " scores");
-                    for(ParseObject p: merchantTransactions)
-                    {
-                        // TODO: Update Transaction local database...
-                        transactions.add(new Transaction(p.getCreatedAt().toString(), p.getString("CustomerPhoneNumber"), p.getString("amount"), Long.parseLong(p.getString("id"))));
+        try {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Transaction");
+            query.whereEqualTo("merchant", ParseUser.getCurrentUser().getObjectId());
+            query.orderByDescending("createdAt");
 
-                    }
-                    CustomAdapter customAdapter = new CustomAdapter(getParent(), R.layout.transaction_row, transactions/*.subList(count * maxItems, (count + 1) * maxItems)*/);
-                    listView.setAdapter(customAdapter);
-                } else {
-                    Log.d("score", "Error: " + e.getMessage());
-                }
+            transactions = new ArrayList<Transaction>();
+            for(ParseObject p: query.find())
+            {
+                Transaction t = new Transaction(p.getCreatedAt().toString(), p.getString("CustomerPhoneNumber"), p.getString("amount"), Long.parseLong("9999"));
+                balance += Integer.parseInt(t.getAmount().substring(2));
+                transactions.add(t);
             }
-        });
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         CustomAdapter customAdapter = new CustomAdapter(this, R.layout.transaction_row, transactions/*.subList(count * maxItems, (count + 1) * maxItems)*/);
         listView.setAdapter(customAdapter);
 
