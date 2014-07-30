@@ -23,6 +23,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
+import com.parse.ParseUser;
 import com.yes.momerchant.R;
 import com.yes.momerchant.providers.Transaction;
 
@@ -104,10 +105,10 @@ public class IssueInvoiceActivity extends Activity {
             PdfWriter docWriter = PdfWriter.getInstance(doc, out);
             doc.open();
             Timestamp time = new Timestamp(new Date().getTime());
-            doc.add(new Paragraph("Issue invoiced by: " + "Company Name"));
+            doc.add(new Paragraph("Issue invoiced by: " + ParseUser.getCurrentUser().get("companyName")));
             doc.add(new Paragraph("Created on: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(time)));
-            doc.add(new Paragraph("Company Registration Number: " + "094-246-462-642"));
-            doc.add(new Paragraph("Recipients Name:" + getIntent().getStringExtra(BillingActivity.CUSTOMER_NAME)));
+            doc.add(new Paragraph("Company Registration Number: " + ParseUser.getCurrentUser().get("companyRegistrationNumber")));
+            doc.add(new Paragraph("Recipients Name: " + getIntent().getStringExtra(BillingActivity.CUSTOMER_NAME)));
             doc.add(new Paragraph("Cell Number: " + getIntent().getStringExtra(BillingActivity.CUSTOMER_NUMBER)));
             doc.add(new Paragraph("Auto generated Invoice Number: " + "02959"));
 
@@ -128,7 +129,7 @@ public class IssueInvoiceActivity extends Activity {
 
             doc.add(linebreak);
 
-            doc.add(new Paragraph("Payment must be sent to this number: 0739383807"));
+            doc.add(new Paragraph("Payment must be sent to this number: " + ParseUser.getCurrentUser().getUsername()));
             doc.add(new Paragraph("Ad: Need a job? Get a Job! Dail 0840294529"));
 
             /*PdfPTable applicationTable = setupTable(Transaction.class);

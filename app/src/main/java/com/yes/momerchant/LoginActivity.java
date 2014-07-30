@@ -34,6 +34,7 @@ public class LoginActivity extends Activity {
     private EditText phoneNumber;
     private EditText mobilePin;
     private Button login;
+    private Button signup;
     public static Date createdAt = new Date();
     private static Context c;
 
@@ -49,6 +50,14 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 loginButton(v);
+            }
+        });
+
+        signup = (Button) findViewById(R.id.signup);
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signupButton(v);
             }
         });
 
@@ -126,5 +135,11 @@ public class LoginActivity extends Activity {
         else{
             Toast.makeText(this, "Bad Credentials", Toast.LENGTH_SHORT).show();
         }*/
+    }
+
+    public void signupButton(View v)
+    {
+        Intent intent = new Intent(getApplication(), SignupActivity.class);
+        startActivity(intent);
     }
 }

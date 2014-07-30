@@ -26,5 +26,6 @@
     <string name="title_activity_generated_report">GeneratedReport</string>
     <string name="parse_application_id">2pJCMZpWtCL9ItTWfBkS8bKZ0l8ibdGCIzWLyKdf</string>
     <string name="parse_client_key">55R0K2H8qmpH9oBcKhdO2HAy76ZCFM4RcPUcn7Mz</string>
+    <string name="title_activity_signup">SignupActivity</string>
 
 </resources>

@@ -38,7 +38,7 @@
             <Button
                 android:id="@+id/transact"
                 android:layout_below="@+id/dash1"
-                android:text="Transact"
+                android:text="Get Payment"
                 android:textColor="@color/brandColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
             <Button
                 android:id="@+id/reports"
                 android:layout_below="@+id/dash2"
-                android:text="Reports"
+                android:text="Transaction History"
                 android:textColor="@color/brandColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
             <Button
                 android:id="@+id/billing"
                 android:layout_below="@+id/dash3"
-                android:text="Billing"
+                android:text="Invoice"
                 android:textColor="@color/brandColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

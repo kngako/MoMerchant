@@ -34,9 +34,27 @@
                 android:id="@+id/login_or_signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_below="@+id/mobile_pin"
+                android:layout_toLeftOf="@+id/dash"
                 android:text="Login"
+                android:textColor="@color/brandColor"/>
+
+
+            <View
+                android:id="@+id/dash"
+                android:layout_below="@+id/mobile_pin"
+                android:layout_width="25dip"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/login_or_signup"
+                android:layout_centerInParent="true"/>
+
+            <Button
+                android:id="@+id/signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mobile_pin"
+                android:layout_toRightOf="@+id/dash"
+                android:text="Sign up"
                 android:textColor="@color/brandColor"/>
             </RelativeLayout>
 </LinearLayout>

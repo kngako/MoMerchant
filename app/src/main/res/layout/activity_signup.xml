@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context="com.yes.momerchant.SignupActivity">.
+
+    <ScrollView
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <EditText
+                android:id="@+id/phone_number"
+                android:inputType="phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number"/>
+
+            <EditText
+                android:id="@+id/company_name"
+                android:inputType="text"
+                android:layout_below="@+id/phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Company Name"/>
+
+            <EditText
+                android:id="@+id/c_reg_number"
+                android:inputType="text"
+                android:layout_below="@+id/company_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Company Registration Number"/>
+
+            <EditText
+                android:id="@+id/mobile_pin"
+                android:inputType="numberPassword"
+                android:layout_below="@+id/c_reg_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mobile Pin"/>
+
+            <EditText
+                android:id="@+id/confirm_mobile_pin"
+                android:inputType="numberPassword"
+                android:layout_below="@+id/mobile_pin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Mobile Pin"/>
+
+            <Button
+                android:id="@+id/signup"
+                android:text="Sign Up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/brandColor"
+                android:layout_below="@+id/confirm_mobile_pin"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

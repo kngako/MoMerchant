@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -144,21 +145,39 @@ public class BillingActivity extends Activity {
         intent.putStringArrayListExtra(LIST_OF_SERVICES_OR_PRODUCTS, services);
         intent.putStringArrayListExtra(LIST_OF_AMOUNTS, amounts);
 
-        if(emailSwitch.isChecked()) sendEmail(services, amounts);
-
-        startActivityForResult(intent, REQUEST_EXIT);
-    }
-
-    public void sendEmail(List<String> services, List<String> amount)
-    {
-        String text = "I'm too lazy to write it all out...\n\n";
+        String text = "Inovice issued by: Magic.\nCompany registration number: 40624\n";
 
         for(int i = 0; i < services.size(); i++) {
-            text += services.get(i) + ": " + amount.get(i) + "\n";
+            text += services.get(i) + ": " + amounts.get(i) + "\n";
         }
 
         text += "\nHave a good day.";
 
+
+        if(emailSwitch.isChecked()) sendEmail(text);
+
+        try {
+            // TODO: About to send SMS...
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(customerNumber.getText().toString(), null, text, null, null);
+
+            /* Other alternative is...
+            Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+             sendIntent.putExtra("sms_body", "default content");
+             sendIntent.setType("vnd.android-dir/mms-sms");
+             startActivity(sendIntent);
+             */
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this, "Couldn't send sms...", Toast.LENGTH_SHORT).show();
+        }
+
+        startActivityForResult(intent, REQUEST_EXIT);
+    }
+
+    public void sendEmail(String text)
+    {
         Intent email = new Intent(Intent.ACTION_SEND);
         email.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress.getText().toString()});
         email.putExtra(Intent.EXTRA_SUBJECT, "Business Name: Invoice For You.");
