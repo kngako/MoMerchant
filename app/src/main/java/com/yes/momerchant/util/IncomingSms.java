@@ -9,6 +9,9 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+
 /**
  * Created by kgothatso on 2014/07/30.
  */
@@ -28,8 +31,8 @@ public class IncomingSms extends BroadcastReceiver {
 
                 final Object[] pdusObj = (Object[]) bundle.get("pdus");
 
-                for (int i = 0; i < pdusObj.length; i++) {
-
+                for (int i = 0; i < pdusObj.length; i++)
+                {
                     SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
                     String phoneNumber = currentMessage.getDisplayOriginatingAddress();
 
@@ -38,21 +41,24 @@ public class IncomingSms extends BroadcastReceiver {
 
                     Log.i("KGOTHATSO!!!!!", "senderNum: "+ senderNum + "; message: " + message);
 
-                    if(senderNum.equals("TYME"))
+                    if(senderNum.equals("+278393001780409"))
                     {
-                        /*
-                        TODO: Parse SMS...
+
                         ParseObject transaction = new ParseObject("Transaction");
+
+                        String am = message.substring(14, message.indexOf("received"));
+                        Log.i("KGOTHATSO!!", am);
+                        int numStart = message.indexOf("from") + 5;
+                        String num = message.substring(numStart, numStart + 10);
+                        Log.i("KGOTHATSO!!!", num);
 
                         transaction.put("amount", am);
                         transaction.put("CustomerPhoneNumber", num);
                         transaction.put("merchant", ParseUser.getCurrentUser().getObjectId());
                         transaction.saveInBackground();
-                         */
                     }
-
-                } // end for loop
-            } // bundle is null
+                }
+            }
 
         } catch (Exception e) {
             Log.e("SmsReceiver", "Exception smsReceiver" + e);
